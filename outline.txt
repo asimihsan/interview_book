@@ -1,0 +1,2 @@
+text/strings.md
+text/strings-solutions.md
