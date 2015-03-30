@@ -104,7 +104,7 @@ It seems like for each letter in a string we can:
 
 This is a recursive solution. What are the base cases? The permutations of an empty string or a single character is just a one element list of itself. Does this actually work? Convince yourself it does by working over the examples.
 
-How about the time and space complexities of this answer? We're doing something for each permutation, and we know from high school math that the number of permutations in a sequence is proportional to $n!$. Moreover by making a recursive call for each character of the string we're implicitly using a function call stack proportional in size to the length of the string. Hence the time complexity if $O(n \times n!)$ and the space complexity is $O(n)$.
+How about the time and space complexities of this answer? We're doing something for each permutation, and we know from high school math that the number of permutations in a sequence is proportional to $n!$. Moreover we need to return a list of all these permutations. Hence the time complexity if $O(n \times n!)$ and the space complexity is $O(n!)$.
 
 ### Java
 
@@ -114,25 +114,20 @@ import java.io.*;
 
 public class Solution {
     public static List<String> permutations(final String input) {
-        final List<String> result = new ArrayList<String>();
+        final List<String> result = new ArrayList<>();
         if (input.length() <= 1) {
             result.add(input);
             return result;
         }
         for (int i = 0; i < input.length(); i++) {
-            final StringBuilder rest = new StringBuilder();
-            for (int j = 0; j < input.length(); j++) {
-                if (j != i) {
-                    rest.append(input.charAt(j));
-                }
-            }
+            final String rest = input.substring(0, i) + input.substring(i + 1);
             final Character c = input.charAt(i);
             for (final String perm : permutations(rest.toString())) {
                 result.add(c + perm);
             }
         }
-        final List<String> uniqueResult = new ArrayList<String>(
-            new HashSet<String>(result));
+        final List<String> uniqueResult = new ArrayList<>(
+            new HashSet<>(result));
         Collections.sort(uniqueResult);
         return uniqueResult;
     }
@@ -160,13 +155,7 @@ exports.permutations = function(input) {
         return result;
     }
     for (var i = 0; i < input.length; i++) {
-        var xs = [];
-        for (var j = 0; j < input.length; j++) {
-            if (j !== i) {
-                xs.push(input.charAt(j));
-            }
-        }
-        var rest = xs.join('');
+        var rest = input.substring(0, i) + input.substring(i + 1);
         var c = input.charAt(i);
         exports.permutations(rest).forEach(function(perm) {
             result.push(c + perm);
