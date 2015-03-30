@@ -20,6 +20,8 @@ $(TARGETDIR)/$(TARGET)-$(ID).tex: $(TARGETDIR)
 
 pdf: $(TARGETDIR) $(TARGETDIR)/$(TARGET)-$(ID).tex
 	xelatex -shell-escape -output-directory=$(TARGETDIR) \
+		$(TARGETDIR)/$(TARGET)-$(ID).tex && \
+	xelatex -shell-escape -output-directory=$(TARGETDIR) \
 		$(TARGETDIR)/$(TARGET)-$(ID).tex
 
 $(TARGETDIR):

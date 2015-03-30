@@ -82,9 +82,11 @@ Determine if an input string has balanced delimiters. A balanced delimiter start
 
 ### 2. Permutations of characters (popular) (Amazon, Facebook, Google, Yahoo)
 
-Return all permutations of an input string as a list. For example:
+Return all permutations of an input string as a sorted list. The return value must not have duplicates inside it; return each valid permutation only once. For example:
 
--   `"abc"` would return `["abc", "bac", "bca", "acb", "cab"]`
+-   `"abc"` would return `['abc', 'acb', 'bac', 'bca', 'cab', 'cba']`.
+-   `"cba"` would return `['abc', 'acb', 'bac', 'bca', 'cab', 'cba']`.
+-   `"aaa"` would return `['aaa']`.
 
 ### 3. Longest substring that is a palindrome (Amazon, Bloomberg, Yahoo)
 
