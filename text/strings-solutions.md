@@ -83,13 +83,98 @@ def are_delimiters_balanced(input):
     return len(stack) == 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### 2. Permutations of Characters
+## 2. Permutations of Characters
 
 ### Approach
 
+Compare examples of permutations from less to more complex:
+
+-   `""` is `[""]`.
+-   `"a"` is `["a"]`.
+-   `"ab"` is `["ab", "ba"]`.
+-   `"abc"` is `["abc", "acb", "bac", "bca", "cab", "cba"]`.
+
+Is there any connection between the different solutions? Can we re-use answers from less complex answers to make answering more complex questions easier?
+
+It seems like for each letter in a string we can:
+
+-   remove it
+-   figure out the permutations of the rest of the string
+-   prepend the removed character to each permutation
+
+This is a recursive solution. What are the base cases? The permutations of an empty string or a single character is just a one element list of itself. Does this actually work? Convince yourself it does by working over the examples.
+
+How about the time and space complexities of this answer? We're doing something for each permutation, and we know from high school math that the number of permutations in a sequence is proportional to $n!$. Moreover by making a recursive call for each character of the string we're implicitly using a function call stack proportional in size to the length of the string. Hence the time complexity if $O(n \times n!)$ and the space complexity is $O(n)$.
+
 ### Java
 
+~~~~ {.java .numberLines}
+import java.util.*;
+import java.io.*;
+
+public class Solution {
+    public static List<String> permutations(final String input) {
+        final List<String> result = new ArrayList<String>();
+        if (input.length() <= 1) {
+            result.add(input);
+            return result;
+        }
+        for (int i = 0; i < input.length(); i++) {
+            final StringBuilder rest = new StringBuilder();
+            for (int j = 0; j < input.length(); j++) {
+                if (j != i) {
+                    rest.append(input.charAt(j));
+                }
+            }
+            final Character c = input.charAt(i);
+            for (final String perm : permutations(rest.toString())) {
+                result.add(c + perm);
+            }
+        }
+        final List<String> uniqueResult = new ArrayList<String>(
+            new HashSet<String>(result));
+        Collections.sort(uniqueResult);
+        return uniqueResult;
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ### JavaScript
+
+~~~~ {.javascript .numberLines}
+function uniqueSortedArray(array) {
+    var resultUnique = array.reduce(function(p, c) {
+        if (p.indexOf(c) < 0) {
+            p.push(c);
+        }
+        return p;
+    },  []);
+    resultUnique.sort(); 
+    return resultUnique;
+};
+
+exports.permutations = function(input) {
+    var result = [];
+    if (input.length <= 1) {
+        result.push(input);
+        return result;
+    }
+    for (var i = 0; i < input.length; i++) {
+        var xs = [];
+        for (var j = 0; j < input.length; j++) {
+            if (j !== i) {
+                xs.push(input.charAt(j));
+            }
+        }
+        var rest = xs.join('');
+        var c = input.charAt(i);
+        exports.permutations(rest).forEach(function(perm) {
+            result.push(c + perm);
+        });
+    }
+    return uniqueSortedArray(result);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Python
 
