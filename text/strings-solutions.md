@@ -2,6 +2,8 @@
 
 ## 1. Balanced Delimiters
 
+\label{solution.strings.1}
+
 ### Approach
 
 We know that `"([)]"` isn't balanced, whereas `"([])"` is balanced. This is because the order in which delimiters are closed matters, just like for example HTML tags. Hence using an integer counter for each delimiter, incrementing when you see an open and decrementing when you see a close, can't work. Instead we have to know what open delimiters we've seen, and that we're closing them in the correct (reverse) order. Already we know that if we need to keep track of what open delimiters we've seen the best case space complexity is O(n), and we need a data structure to help us.
@@ -85,6 +87,8 @@ def are_delimiters_balanced(input):
 
 ## 2. Permutations of Characters
 
+\label{solution.strings.2}
+
 ### Approach
 
 Compare examples of permutations from less to more complex:
@@ -104,7 +108,28 @@ It seems like for each letter in a string we can:
 
 This is a recursive solution. What are the base cases? The permutations of an empty string or a single character is just a one element list of itself. Does this actually work? Convince yourself it does by working over the examples.
 
-How about the time and space complexities of this answer? We're doing something for each permutation, and we know from high school math that the number of permutations in a sequence is proportional to $n!$. Moreover we need to return a list of all these permutations. Hence the time complexity if $O(n \times n!)$ and the space complexity is $O(n!)$.
+However the problem states that we must return permutations as a sorted list with no duplicates. Since we have a way of getting all the permutations, as a final step we could put it into a set, then a list, then sort it, e.g.
+
+-   In Python do:
+
+~~~~ {.python .numberLines}
+sorted(list(set(result)))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-   In Java do:
+
+~~~~ {.java .numberLines}
+List<String> newResult = new ArrayList<>(new HashSet<>(result));
+Collections.sort(newResult) 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+How about the time and space complexities of this answer? For each character in the input we're doing something for each permutation, and we know from high school math that the number of permutations in a sequence is proportional to $n!$. We prepend a character to each permutation. Finally we put all the permutations into a hash table, then back into a list, then sort it. Overall the time complexity is $O(n^2 \times n! + n! \log n!)$, and the space complexity is $O(n!)$.
+
+Can we do better? In terms of space complexity no, we simply must be able to return all the permutations in a list (which in itself is an interesting topic of discussion; wouldn't it be better to return an iterator/generator over the permutations and avoid having to allocate so much space?). Let's assume we must return a list.
+
+What about the time complexity, specifically why do we need to sort the permutations at the end? Is it possible to instead generate the permutations in lexographic order? Yes, indeed we can, but this is left as a future exercise for the reader.
+
+TODO make this problem about returning an unsorted list, make a more advanced problem about returning an ordered iterator (i.e. minimize space complexity).
 
 ### Java
 
@@ -168,6 +193,7 @@ exports.permutations = function(input) {
 ### Python
 
 ~~~~ {.python .numberLines}
+# don't be cheeky and use itertools.permutations()!
 def permutations(input):
     if len(input) <= 1:
         return [input]
@@ -176,4 +202,63 @@ def permutations(input):
         rest = input[:i] + input[i+1:]
         result.extend([c + perm for perm in permutations(rest)])
     return sorted(list(set(result)))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## 3. Longest substring that is a palindrome
+
+\label{solution.strings.3}
+
+One possible solution involves dividing this problem into two sub-problems:
+
+1.  Iterate over all possible substrings
+2.  Test each substring to see if it's a palindrome, and keep track of the longest palindrome.
+
+In this approach, we iterate over all possible pairs of string indices (to get all substrings), hence $O(n^2)$ time. For each substring we reverse it, an $O(n)$ operation, then compare it to the original, again $O(n)$. Hence the time complexity is $O(n^2 \times (n + n)) = O(n^3)$. Reversing a string requires a temporary copy of it being made for each comparison, giving a space complexity of $O(n). Although we create $O(n^2)$ of these temporary strings you could argue the time complexity is still $O(n)$ because that's how much space we need at any given time in the loop.
+
+Can we do better? It seems odd that we have to keep creating temporary strings in order to determine the reverse. Since the reverse of a string never changes, we can reverse the larger string once at the start and use that for comparing the original string with. This results in a time complexity of $O(n^3)$ (we are still iterating over all possible substrings and still performing a linear comparison between the reversed and original strings) and a space complexity of $O(n)$ (in order to hold the reversed string). In big-oh terms this isn't an improvement, but in practical terms this method is significantly faster and more space efficient.
+
+Can we do even better? Palindromes are themselves made of smaller palindromes; `"abcba"` is a palindrome, implying `"bcb"` is also a palindrome, implying `"c"` is also a palindrome. How about odd-length palindromes? `"aa"` is a palindrome, implying that `""` (the empty string) is also a palindrome. We can exploit this property in reverse and for each possible starting point in a string expand outwards looking for palindromes. There are $2n-1$ such starting points, and we can expand up to $n$ characters, so this method has a $O(n^2)$ time complexity. and $O(1)$ space complexity.
+
+Can we do even better? There are specialized algorithms to solve this problem in $O(n)$ time [^100] [^101], and some companies (e.g. Bloomberg) expect a $O(n)$ time solution. However in the interests of offering a realistic answer to an interview we've provided the $O(n^2)$ solution here, leaving the rest as an exercise for the reader.
+
+[^100]: [Longest palindromic substring](http://en.wikipedia.org/wiki/Longest_palindromic_substring) (Wikipedia.org)
+
+[^101]: [Longest palindromic substring](http://wcipeg.com/wiki/index.php?title=Longest_palindromic_substring) (Woburn C.I. Programming Enrichment Group)
+
+### Approach
+
+### Java
+
+~~~~ {.java .numberLines}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### JavaScript
+
+~~~~ {.javascript .numberLines}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Python
+
+~~~~ {.python .numberLines}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## n. <blank solution for copy pasting>
+
+\label{solution.strings.n}
+
+### Approach
+
+### Java
+
+~~~~ {.java .numberLines}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### JavaScript
+
+~~~~ {.javascript .numberLines}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Python
+
+~~~~ {.python .numberLines}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

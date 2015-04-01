@@ -80,6 +80,8 @@ Determine if an input string has balanced delimiters. A balanced delimiter start
 -   `"()[]{}"` and `"([]{})"` are balanced, whereas
 -   `"([)]"` and `"([]"` are not balanced.
 
+Solutions on page \getpagerefnumber{solution.strings.1}.
+
 ### 2. Permutations of characters (popular) (Amazon, Facebook, Google, Yahoo)
 
 Return all permutations of an input string as a sorted list. The return value must not have duplicates inside it; return each valid permutation only once. For example:
@@ -88,11 +90,15 @@ Return all permutations of an input string as a sorted list. The return value mu
 -   `"cba"` would return `['abc', 'acb', 'bac', 'bca', 'cab', 'cba']`.
 -   `"aaa"` would return `['aaa']`.
 
+Solutions on page \getpagerefnumber{solution.strings.2}.
+
 ### 3. Longest substring that is a palindrome (Amazon, Bloomberg, Yahoo)
 
 Return the longest substring that is also a palindrome from an input string. If no such palindrome exists return an empty string. If there is more than one longest palindrome of a given size return any one of them. For example:
 
 -   `"abadd"` would return `"aba"`
+
+Solutions on page \getpagerefnumber{solution.strings.3}.
 
 ### 4. Find US phone numbers (Amazon)
 
