@@ -1,2 +1,3 @@
+text/how-to-prepare.md
 text/strings.md
 text/strings-solutions.md
