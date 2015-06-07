@@ -12,7 +12,7 @@ The worst possible way to solve a practice problem is to code it up in an Integr
 
 -   Another third of the time type out your solution in a featureless editor, like Notepad on Windows, TextEdit on Mac OS X, or a website like CollabEdit. Whatever you type out must compile first-time, and if it doesn't figure out why and keep practicing with that in mind.
 
--   The last third of the time write out your answer on a whiteboard, imagining that you're in an interview and loudly talk to yourself. Everything you write must compile first-time when you type it into an editor. (You don't need a massive physical whiteboard, especially for home. Instead you could buy a [magic whiteboard](http://www.amazon.co.uk/Magic-Whiteboard-MAGICWHITE/dp/B001P5UAV8/ref=sr_1_1?ie=UTF8&qid=1428285789&sr=8-1&keywords=magic+whiteboard) that can be stuck onto your wall).
+-   The last third of the time write out your answer on a whiteboard, imagining that you're in an interview and loudly talk to yourself. Everything you write must compile first-time when you type it into an editor. (You don't need a massive physical whiteboard, especially for home. Instead you could buy a [magic whiteboard](http://www.amazon.co.uk/Magic-Whiteboard-MAGICWHITE/dp/B001P5UAV8/) that can be stuck onto your wall).
 
 ## Interviews involve people
 

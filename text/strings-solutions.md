@@ -213,7 +213,7 @@ One possible solution involves dividing this problem into two sub-problems:
 1.  Iterate over all possible substrings
 2.  Test each substring to see if it's a palindrome, and keep track of the longest palindrome.
 
-In this approach, we iterate over all possible pairs of string indices (to get all substrings), hence $O(n^2)$ time. For each substring we reverse it, an $O(n)$ operation, then compare it to the original, again $O(n)$. Hence the time complexity is $O(n^2 \times (n + n)) = O(n^3)$. Reversing a string requires a temporary copy of it being made for each comparison, giving a space complexity of $O(n). Although we create $O(n^2)$ of these temporary strings you could argue the time complexity is still $O(n)$ because that's how much space we need at any given time in the loop.
+In this approach, we iterate over all possible pairs of string indices (to get all substrings), hence $O(n^2)$ time. For each substring we reverse it, an $O(n)$ operation, then compare it to the original, again $O(n)$. Hence the time complexity is $O(n^2 \times (n + n)) = O(n^3)$. Reversing a string requires a temporary copy of it being made for each comparison, giving a space complexity of $O(n)$. Although we create $O(n^2)$ of these temporary strings you could argue the space complexity is still $O(n)$ because that's how much space we need at any given time in the loop.
 
 Can we do better? It seems odd that we have to keep creating temporary strings in order to determine the reverse. Since the reverse of a string never changes, we can reverse the larger string once at the start and use that for comparing the original string with. This results in a time complexity of $O(n^3)$ (we are still iterating over all possible substrings and still performing a linear comparison between the reversed and original strings) and a space complexity of $O(n)$ (in order to hold the reversed string). In big-oh terms this isn't an improvement, but in practical terms this method is significantly faster and more space efficient.
 
@@ -230,16 +230,71 @@ Can we do even better? There are specialized algorithms to solve this problem in
 ### Java
 
 ~~~~ {.java .numberLines}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import java.util.*;
+import java.io.*;
 
-### JavaScript
-
-~~~~ {.javascript .numberLines}
+public class Solution {
+    public static String longestSubstringPalindrome(final String input) {
+        String longestPalindrome = "";
+        for (int i = 0, j, k; i <= 2 * input.length() + 1; i++) {
+            if (i % 2 == 0) {
+                // in between characters, so ignore "" case
+                j = (i - 1) / 2;
+                k = i / 2;
+            } else {
+                // on a character, so start with that character
+                j = (i - 1) / 2;
+                k = (i - 1) / 2;
+            }
+            while (j >= 0 && k < input.length()) {
+                final String substring = input.substring(j, k + 1);
+                if (substring.charAt(0) != substring.charAt(substring.length() - 1)) {
+                    break;
+                }
+                if (substring.length() > longestPalindrome.length()) {
+                    longestPalindrome = substring;
+                }
+                j--;
+                k++;
+            }
+        }
+        return longestPalindrome;
+    }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Python
 
 ~~~~ {.python .numberLines}
+import itertools
+
+def longest_substring_palindrome(input):
+    """
+    Expanding from all possible centers is equivalent to expanding from
+    all possible single characters and adjacent pairs of characters. For
+    example, "aba" means expanding from ["a", "ab", "b", "ba", "a"]. For
+    simplicity we expand from single characters, then pairs.
+
+    Rather than create a list of indices to loop over in-memory, we iterate over
+    a generator of indices.
+    """
+    longest = ""
+
+    def get_indices(i):
+        yield (i, i)
+        yield (i, i + 1)
+    indices = (itertools.chain.from_iterable(get_indices(i)
+               for i in xrange(len(input))))
+    for (start, end) in indices:
+        while start >= 0 and end < len(input):
+            substring = input[start:end+1]
+            if substring[0] != substring[-1]:
+                break
+            if len(substring) > len(longest):
+                longest = substring
+            start -= 1
+            end += 1
+    return longest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## n. <blank solution for copy pasting>
@@ -251,11 +306,6 @@ Can we do even better? There are specialized algorithms to solve this problem in
 ### Java
 
 ~~~~ {.java .numberLines}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-### JavaScript
-
-~~~~ {.javascript .numberLines}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Python
