@@ -43,28 +43,6 @@ public class Solution {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### JavaScript
-
-~~~~ {.javascript .numberLines}
-exports.are_delimiters_balanced = function(input) {
-    var pairs = {
-        '{': '}',
-        '(': ')',
-        '[': ']'
-    };
-    var stack = [];
-    for (var i = 0, len = input.length; i < len; i++) {
-        var c = input[i];
-        if (c in pairs) {
-            stack.push(c);
-        } else if (stack.length === 0 || pairs[stack.pop()] !== c) {
-            return false;
-        }
-    }
-    return stack.length === 0;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ### Python
 
 ~~~~ {.python .numberLines}
@@ -156,37 +134,6 @@ public class Solution {
         Collections.sort(uniqueResult);
         return uniqueResult;
     }
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-### JavaScript
-
-~~~~ {.javascript .numberLines}
-function uniqueSortedArray(array) {
-    var resultUnique = array.reduce(function(p, c) {
-        if (p.indexOf(c) < 0) {
-            p.push(c);
-        }
-        return p;
-    },  []);
-    resultUnique.sort(); 
-    return resultUnique;
-};
-
-exports.permutations = function(input) {
-    var result = [];
-    if (input.length <= 1) {
-        result.push(input);
-        return result;
-    }
-    for (var i = 0; i < input.length; i++) {
-        var rest = input.substring(0, i) + input.substring(i + 1);
-        var c = input.charAt(i);
-        exports.permutations(rest).forEach(function(perm) {
-            result.push(c + perm);
-        });
-    }
-    return uniqueSortedArray(result);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
