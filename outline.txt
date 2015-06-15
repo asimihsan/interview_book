@@ -1,7 +1,6 @@
 text/how-to-prepare.md
+text/the-framework.md
 text/arrays.md
-text/linked-lists.md
 text/strings.md
 text/arrays-solutions.md
-text/linked-lists-solutions.md
 text/strings-solutions.md
