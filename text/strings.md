@@ -142,20 +142,22 @@ longest palindrome of a given size return any one of them. For example:
 
 Solutions on page \getpagerefnumber{solution.strings.3}.
 
-### 4. Find US phone numbers (Amazon)
+### 4. Match a String (Facebook, Google, Yahoo)
 
-Given a string that includes line breaks return a list of all US phone numbers.
-Patterns of phone numbers you must support include:
+Given a filename string and a pattern string return true if the filename matches
+the pattern, else return false. The pattern may contain zero or one stars
+("\*"), where a star can match zero or more of any character.
 
--   `+18005551234`
-    -   Optional international dialing symbol.
-    -   Optional international dialing prefix.
--   `800-555-1234`
-    -   Spaces are optional, or optionally may be hyphens.
--   `(800) 555 1234`
-    -   Area code can optionally be surrounded by parentheses.
--   `5551234`
-    -   International dialing prefix and area code are optional.
+For example:
+
+-   `("index.html", "*html")` returns true
+-   `("foo.txt", "*html")` returns false
+-   `("cat", "c*t")` returns true
+
+Assume that the restriction on the number of stars always holds. For simplicity
+assume that the input strings are ASCII encoded.
+
+Solutions on page \getpagerefnumber{solution.strings.4}.
 
 ### 5. Convert a string to a number of arbitrary base (Amazon, Bloomberg, Groupon)
 

@@ -34,6 +34,14 @@ after seeing `1` all I need to note down is "Have a seen a 0? If yes, return
 Here's a Python solution for the first, $O(n)$ itme $O(n)$ space solution:
 
 ~~~~ {.python .numberLines}
+def pair_sums_to_k(array, k):
+    lookup = set()
+    for element in array:
+        required = k - element
+        if required in lookup:
+            return (min(required, element), max(required, element))
+        lookup.add(element)
+    return None
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Focusing on the second part of the problem, given the restrction of $O(1)$ space
@@ -150,7 +158,6 @@ cases that would identify the bug:
 #### Buggy Solution 1
 
 ~~~~ {.python .numberLines}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def pair_sums_to_k(array, k):
     lookup = set(array)
     for element in array:
@@ -159,6 +166,5 @@ def pair_sums_to_k(array, k):
             return (min(required, element), max(required, element))
     return None
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 [^1]: [WikiSort](https://github.com/BonzaiThePenguin/WikiSort) (GitHub)

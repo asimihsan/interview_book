@@ -305,6 +305,53 @@ def longest_substring_palindrome(input):
     return longest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+### 4. Match a String
+
+\label{solution.strings.4}
+
+1.  Confirm problem statement
+2.  Come up wih a few examples
+
+It's important to come up with a reasonable set of examples. For example, I
+wonder how the position of the star affects matches:
+
+-   `("index.html", "*html")` returns true
+-   `("index.html", "index*html")` returns true
+-   `("index.html", "index*)` returns true
+
+So it's important to know what's after the star except if it's at the end of the
+string, in which case it always matches.
+
+I wonder how you know how many characters to consume, for example:
+
+-   `("ooooo", "*o")` returns true? or false?
+
+In regular expressions match operators are typically *greedy*, meaning they try
+to consume as much as possible, meaning the above should be true. I wonder how
+we can capture this greedy nature in an algorithm?
+
+The last example above reveals the odd nature of the star. Whenever it's in
+effect and we are able to match what's after the star we have a choice: continue
+using the star to match characters in the input string, or match the character
+after the star and advance to the next character in the pattern. We don't know
+which choice is correct, but if any combination of choices matches the string
+then the pattern matches, else it does not.
+
+3.  Brainstorm algorithms
+4.  Do algorithm once by hand and explain approach at a high level
+
+Exploring choices and returning values back at the end of them sounds oddly like
+a graph question! Often graph questions are easily solved using recursive
+expressions, and since this question hasn't specified time or space complexity
+constraints let's assume a recursive solution is a good start.
+
+
+
+5.  Code out solution
+6.  Test solution with input
+7.  Look for improvement opportunities in your code
+
+
 ## n. <blank solution for copy pasting>
 
 \label{solution.strings.n}
