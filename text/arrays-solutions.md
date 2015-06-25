@@ -44,13 +44,14 @@ def pair_sums_to_k(array, k):
     return None
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Focusing on the second part of the problem, given the restrction of $O(1)$ space
-(constant-type space, i.e. allocated memory that does not vary with the size of
-the size of the input) this rules out the use of data structures. We know that
-iterating over pairs of elements is $O(n^2)$, and this is worth mentioning. It's
-unlikely an interviewer would settle for $O(n^2)$, but at the same time where
-else is there to go? If you get stumped, the old standby is always "does sorting
-help?", since sorts are $O(n \log n)$ time and might expose a useful angle.
+Focusing on the second part of the problem, given the restriction of $O(1)$
+space (constant-time space, i.e. allocated memory that does not vary with the
+size of the size of the input) this rules out the use of data structures. We
+know that iterating over pairs of elements is $O(n^2)$, and this is worth
+mentioning. It's unlikely an interviewer would settle for $O(n^2)$, but at the
+same time where else is there to go? If you get stumped, the old standby is
+always "does sorting help?", since sorts are $O(n \log n)$ time and might expose
+a useful angle.
 
 However, what is the space complexity of sorting? Typical sorting methods cannot
 avoid non-constant space complexity. Either sorting algorithms are recursive and
