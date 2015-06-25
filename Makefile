@@ -1,6 +1,5 @@
-TARGET = interview-book.pdf
+TARGET = interview-book
 SRC = $(shell cat outline.txt)
-ID = $(shell git rev-parse --short HEAD)
 TARGETDIR = build
 PDFOPTIONS = --latex-engine xelatex \
 	--variable monofont='Monaco' \
@@ -10,19 +9,21 @@ PDFOPTIONS = --latex-engine xelatex \
 	--variable documentclass=scrbook \
 	--include-in-header header.tex \
 	--table-of-contents \
-	--toc-depth=2
+	--toc-depth=2 \
+	--filter ./graphviz.py \
+	--verbose
 
 all: pdf
 	@echo "Done!"
 
-$(TARGETDIR)/$(TARGET)-$(ID).tex: $(TARGETDIR)
-	pandoc $(SRC) $(PDFOPTIONS) -o $(TARGETDIR)/$(TARGET)-$(ID).tex
+$(TARGETDIR)/$(TARGET).tex: $(TARGETDIR)
+	pandoc $(SRC) $(PDFOPTIONS) -o $(TARGETDIR)/$(TARGET).tex
 
-pdf: $(TARGETDIR) $(TARGETDIR)/$(TARGET)-$(ID).tex
+pdf: $(TARGETDIR) $(TARGETDIR)/$(TARGET).tex
 	xelatex -shell-escape -output-directory=$(TARGETDIR) \
-		$(TARGETDIR)/$(TARGET)-$(ID).tex && \
+		$(TARGETDIR)/$(TARGET).tex && \
 	xelatex -shell-escape -output-directory=$(TARGETDIR) \
-		$(TARGETDIR)/$(TARGET)-$(ID).tex
+		$(TARGETDIR)/$(TARGET).tex
 
 $(TARGETDIR):
 	mkdir build
